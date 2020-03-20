@@ -1,0 +1,14 @@
+const Router = require("koa-router")
+const koa_jwt = require("koa-jwt")
+const router = new Router()
+const userCtl = require("../controller/user")
+const {token_secret} = require("../config")
+const user_token = koa_jwt({secret:token_secret})
+router.get("/user", user_token,userCtl.get_query)
+router.post("/user", userCtl.post_insert)
+router.get("/user/:id", userCtl.get_queryById)
+router.patch("/user/:id",userCtl.patch_updata)
+router.delete("/user/:id",user_token,userCtl.delete_del)
+
+
+module.exports = router
