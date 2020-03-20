@@ -6,7 +6,7 @@ const { Schema,model } = mongoose
 */
 const UserSchema = Schema({
     name: {type: String,required: true},
-    password: {type: String, required: true},
+    password: {type: String, required: true,select: false},
     gender: {type: String,default: "0"},
     date: {type: Date,default: Date.now()}
 })

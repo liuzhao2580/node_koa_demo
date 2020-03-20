@@ -9,6 +9,7 @@ router.post("/user", userCtl.post_insert)
 router.get("/user/:id", userCtl.get_queryById)
 router.patch("/user/:id",userCtl.patch_updata)
 router.delete("/user/:id",user_token,userCtl.delete_del)
+router.post("/userUpload", userCtl.post_userUpload)
 
 
 module.exports = router

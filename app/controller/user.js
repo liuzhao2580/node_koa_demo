@@ -1,4 +1,5 @@
 const User = require("../model/user")
+const Node_path = require("path")
 class userCtl {
     // 新增用户
     async post_insert(ctx) {
@@ -22,13 +23,19 @@ class userCtl {
     }
     // 获取用户
     async get_query(ctx) {
-        console.log(ctx)
         ctx.body = await User.find()
     }
     // 获取指定用户信息 
     async get_queryById(ctx) {
         const {id} = ctx.params
         ctx.body = await User.findById(id)
+    }
+    // 上传图片
+    async post_userUpload(ctx) {
+        const { path } = ctx.request.files.filename
+        const basename = Node_path.basename(path)
+        const file_path =  `${ctx.origin}/upload/${basename}`
+        ctx.body = file_path
     }
 }
 
