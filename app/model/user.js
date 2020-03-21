@@ -57,6 +57,11 @@ const UserSchema = Schema({
             }
         }],
         select: false
+    },
+    // 用户的关注
+    follow : {
+        type: [{ type: Schema.Types.ObjectId, ref: 'UserInfo_database' }],
+        select: false
     }
 })
 module.exports = model("UserInfo_database", UserSchema)

@@ -4,6 +4,9 @@ const {token_secret} = require("../config")
 module.exports = {
     async post_login(ctx) {
         const user = await User.findOne(ctx.request.body)
+        if(!user) {
+            ctx.throw(404,"用户名或密码不对")
+        }
         const {_id,name} = user
         let token
         try {
