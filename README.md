@@ -44,10 +44,23 @@ module.exports = model("UserInfo_database", UserSchema)
 
 ### 设置数据的分页
 1. 使用`.limit().skip()`的方法
-2. 具体使用  请求传递的地址`localhost:3000/user?page=1?pn=10`
+2. 具体使用  请求传递的地址`localhost:3000/user?page=1&pn=10`
 ```js
 const {page, pn} = ctx.query
 const set_page = Math.max(+page, 1) - 1
 const set_pn = Math.max(+pn, 10)
 ctx.body = await User.find().limit(set_pn).skip(set_page * set_pn)
+```
+
+### 添加模糊搜索
+1. 只用在`find()`方法中添加需要模糊搜索的字段 例如`find({name: 'dada'})` [文档地址](http://www.mongoosejs.net/docs/api.html#find_find)
+2. 使用 请求的地址参数`localhost:3000/user?page=1&pn=10&q="dada"`
+```js
+async get_Alltopic(ctx) {
+    const {page, pn} = ctx.query
+    const set_page = Math.max(+page, 1) - 1
+    const set_pn = Math.max(+pn, 10)
+    const topic_info = await TopicSchema.find({name: new RegExp(ctx.query.q)}).limit(set_pn).skip(set_page * set_pn)
+    ctx.body = topic_info
+}
 ```

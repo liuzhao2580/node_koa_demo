@@ -59,7 +59,7 @@ class userCtl {
         const {page, pn} = ctx.query
         const set_page = Math.max(+page, 1) - 1
         const set_pn = Math.max(+pn, 10)
-        ctx.body = await User.find().limit(set_pn).skip(set_page * set_pn)
+        ctx.body = await User.find({name: new RegExp(ctx.query.q)}).limit(set_pn).skip(set_page * set_pn)
     }
     // 获取指定用户信息 
     async get_queryById(ctx) {

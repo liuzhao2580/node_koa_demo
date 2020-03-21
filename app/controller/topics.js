@@ -7,7 +7,7 @@ class topciCtl {
         const {page, pn} = ctx.query
         const set_page = Math.max(+page, 1) - 1
         const set_pn = Math.max(+pn, 10)
-        const topic_info = await TopicSchema.find().limit(set_pn).skip(set_page * set_pn)
+        const topic_info = await TopicSchema.find({name: new RegExp(ctx.query.q)}).limit(set_pn).skip(set_page * set_pn)
         ctx.body = topic_info
     }
     // 获取指定话题信息
