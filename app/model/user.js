@@ -7,7 +7,7 @@ const {
 新建一个用户，姓名是必填项，字符串类型
 性别不是必填项,默认是0 代表男性
 */
-const UserSchema = Schema({
+const UserSchema = new Schema({
     // 姓名
     name: {
         type: String,

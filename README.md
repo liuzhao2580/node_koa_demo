@@ -25,7 +25,7 @@
 ```js
 const mongoose = require("mongoose")
 const {Schema,model} = mongoose
-const UserSchema = Schema({
+const UserSchema = new Schema({
     // 姓名
     name: {
         type: String,
@@ -41,3 +41,13 @@ module.exports = model("UserInfo_database", UserSchema)
 2. 获取用户关注列表 使用的请求方式`GET` 使用的地址`localhost:3000/user/:id/follow`，这里其实应该获取用户名来代替用户id，本人只是为了方便使用postman进行演示
 3. 关注某用户 使用的请求方式`PUT` 请求地址`localhost:3000/user/follow/:id`
 4. 取消关注某用户 使用的请求方式`DELETE` 请求地址`localhost:3000/user/follow/:id`
+
+### 设置数据的分页
+1. 使用`.limit().skip()`的方法
+2. 具体使用  请求传递的地址`localhost:3000/user?page=1?pn=10`
+```js
+const {page, pn} = ctx.query
+const set_page = Math.max(+page, 1) - 1
+const set_pn = Math.max(+pn, 10)
+ctx.body = await User.find().limit(set_pn).skip(set_page * set_pn)
+```
